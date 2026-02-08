@@ -1,0 +1,73 @@
+<div class="dashboard-container">
+  
+  <header class="header">
+    <h1>Prueba Técnica - Centrica Soluciones Innovadoras</h1>
+  </header>
+
+  <div class="grid-layout">
+
+    <section class="card search-card">
+      <div class="card-header">
+        <h2>Ejercicio 1: Buscador Reactivo</h2>
+      </div>
+      
+      <div class="card-body">
+        <p class="description">
+          Escribe 3 o más caracteres para buscar clientes por nombre.
+        </p>
+        <app-customer-search></app-customer-search>
+      </div>
+    </section>
+
+    <section class="card cart-card">
+      <div class="card-header">
+        <h2>Ejercicio 2: Carrito de Compras</h2>
+        <button class="clear-cart-btn" (click)="cartService.clearCart()">Vaciar</button>
+      </div>
+      
+      <div class="card-body">
+        <div class="stats">
+          <div class="stat-box">
+            <span>Items</span>
+            <strong>{{ cartService.totalCount() }}</strong>
+          </div>
+          <div class="stat-box total">
+            <span>Total</span>
+            <strong>{{ cartService.totalPrice() | currency }}</strong>
+          </div>
+        </div>
+
+        <hr>
+
+        <h3>Agregar Productos:</h3>
+        <div class="product-grid">
+          @for (product of products; track product.id) {
+            <button (click)="addToCart(product)" class="product-card">
+              <span class="name">{{ product.name }}</span>
+              <span class="price-pill">{{ product.price | currency }}</span>
+            </button>
+          }
+        </div>
+
+        <div class="cart-list-container">
+          <h3>Tu Carrito:</h3>
+          <ul class="cart-list">
+            @for (item of cartService.items(); track $index) {
+              <li class="cart-item">
+                <span class="item-name">{{ item.name }}</span>
+                <span class="item-price">{{ item.price | currency }}</span>
+              </li>
+            } 
+            
+            @empty {
+              <li class="empty-msg">
+                El carrito está vacío. ¡Agrega algo arriba!
+              </li>
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>

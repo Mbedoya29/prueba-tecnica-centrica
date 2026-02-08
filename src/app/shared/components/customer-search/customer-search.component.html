@@ -1,0 +1,24 @@
+<div class="search-box">
+  <div class="input-wrapper">
+    <input [formControl]="searchControl" type="text" placeholder="Buscar cliente..." class="input-field" />
+    
+    @if (searchControl.value) {
+      <button (click)="clearSearch()" class="btn-clear" title="Limpiar">
+        ✕
+      </button>
+    }
+  </div>
+
+  <ul class="results-list">
+    @for (customer of results$ | async; track customer.id) {
+      <li class="result-item">
+        <strong>{{ customer.name }}</strong>
+      </li>
+    } 
+    @empty {
+      @if (searchControl.value.length >= 3) {
+        <li class="empty-msg">No se encontraron resultados.</li>
+      }
+    }
+  </ul>
+</div>
